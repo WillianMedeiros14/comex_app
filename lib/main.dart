@@ -17,8 +17,8 @@ class MyApp extends StatelessWidget {
       theme: myTheme,
       initialRoute: '/',
       routes: {
-        '/': (context) => OnboardingScreen(),
-        '/home': (context) => HomeScreen(),
+        '/': (context) => const OnboardingScreen(),
+        '/home': (context) => const HomeScreen(),
       },
     );
   }

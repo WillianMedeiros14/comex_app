@@ -12,22 +12,24 @@ class _HomScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-
         child: Column(
           children: [
-             Padding(
-              padding: EdgeInsets.only(left: 16, top: 14, right: 16, bottom:14),
-               child: SizedBox(
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 16, top: 14, right: 16, bottom: 14),
+              child: Container(
                 width: 73,
                 height: 73,
-                child: Positioned.fill(
-                  child: Image.asset(
-                    "assets/images/background_onboarding2.png",
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image:
+                        AssetImage("assets/images/background_onboarding2.png"),
                     fit: BoxFit.cover,
                   ),
                 ),
-                           ),
-             ),
+              ),
+            ),
           ],
         ),
       ),
