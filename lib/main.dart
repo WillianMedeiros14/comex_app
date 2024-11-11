@@ -1,3 +1,5 @@
+import 'package:comex_app/features/onboarding/onboarding_screen.dart';
+import 'package:comex_app/shared/themes/theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,11 +13,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      theme: myTheme,
+      home: const OnboardingScreen(),
+      
     );
   }
 }
@@ -51,6 +51,14 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             const Text(
               'You have pushed the button this many times:',
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text('Elevated Button'),
+            ),
+            TextButton(
+              onPressed: () {},
+              child: const Text('Text Button'),
             ),
             Text(
               '$_counter',
