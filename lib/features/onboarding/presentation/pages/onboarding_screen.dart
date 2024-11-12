@@ -6,20 +6,19 @@ class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: Stack(
         children: [
-          SizedBox(
-            width: screenHeight,
-            height: screenHeight * 0.8,
-            child: Positioned.fill(
-              child: Image.asset(
-                "assets/images/background_onboarding2.png",
-                fit: BoxFit.cover,
-              ),
-            ),
+          // Imagem de fundo, preenche a tela
+          Image.asset(
+            "assets/images/background_onboarding2.png",
+            width: double.infinity,
+            height: screenHeight * 0.8, // Ajuste a altura conforme necessário
+            fit: BoxFit.cover, // Faz a imagem cobrir a área disponível
           ),
+          // Conteúdo principal
           Padding(
             padding: const EdgeInsets.all(57),
             child: Column(
@@ -48,7 +47,8 @@ class OnboardingScreen extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () => Navigator.pushNamed(context, '/BottomNavigationScreenHome'),
+                    onPressed: () => Navigator.pushNamed(
+                        context, '/BottomNavigationScreenHome'),
                     child: const Text('Começar'),
                   ),
                 )
