@@ -48,7 +48,7 @@ class OnboardingScreen extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () => Navigator.pushNamed(context, '/home'),
+                    onPressed: () => Navigator.pushNamed(context, '/BottomNavigationScreenHome'),
                     child: const Text('Começar'),
                   ),
                 )

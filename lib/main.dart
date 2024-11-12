@@ -1,3 +1,4 @@
+import 'package:comex_app/features/bottomNavigation/widget/BottomNavigationBar.dart';
 import 'package:comex_app/features/home/home_screen.dart';
 import 'package:comex_app/features/onboarding/onboarding_screen.dart';
 import 'package:comex_app/shared/themes/theme.dart';
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const OnboardingScreen(),
+        '/BottomNavigationScreenHome': (context) => const BottomNavigationScreen(),
         '/home': (context) => const HomeScreen(),
       },
     );
