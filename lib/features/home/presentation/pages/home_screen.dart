@@ -1,4 +1,7 @@
+import 'package:comex_app/features/home/presentation/widgets/search.dart';
 import 'package:flutter/material.dart';
+
+import '../widgets/filter.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -73,26 +76,7 @@ class _HomScreenState extends State<HomeScreen> {
               child: Row(
                 children: [
                   Expanded(
-                    child: TextField(
-                      controller: controllerSearchInput,
-                      style: const TextStyle(fontSize: 14.8),
-                      decoration: InputDecoration(
-                        hintText: "Pesquisar",
-                        prefixIcon: const Icon(Icons.search),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(35),
-                          borderSide:
-                              const BorderSide(width: 0.5, color: Colors.black),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(35),
-                          borderSide:
-                              const BorderSide(width: 1.5, color: Colors.black),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                      ),
-                    ),
+                    child: Search(controllerSearchInput: controllerSearchInput),
                   ),
                   const SizedBox(width: 17),
                   Container(
@@ -102,13 +86,7 @@ class _HomScreenState extends State<HomeScreen> {
                       color: Theme.of(context).primaryColor,
                       shape: BoxShape.circle,
                     ),
-                    child: IconButton(
-                      icon: const Icon(Icons.filter_list),
-                      color: Colors.white,
-                      onPressed: () {
-                        print('IconButton pressed');
-                      },
-                    ),
+                    child: const Filter(),
                   )
                 ],
               ),
