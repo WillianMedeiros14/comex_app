@@ -1,10 +1,47 @@
-
+import 'package:comex_app/features/home/presentation/widgets/Itens_filter.dart';
 import 'package:flutter/material.dart';
 
-class Filter extends StatelessWidget {
-  const Filter({
-    super.key,
-  });
+class Filter extends StatefulWidget {
+  final String filtterActive;
+  final ValueChanged<String> onSelectFilter;
+
+  const Filter(
+      {super.key, required this.filtterActive, required this.onSelectFilter});
+
+  @override
+  State<Filter> createState() => _FilterState();
+}
+
+class _FilterState extends State<Filter> {
+  List<String> filtersList = [
+    'Todos',
+    'Pizas',
+    'Bebidas',
+    'Hamburguer',
+    'Doces',
+    'Saladas'
+  ];
+  late String filterActiveChanged;
+
+  void _onFilterSelected(String filtro) {
+    setState(() {
+      filterActiveChanged = filtro;
+    });
+
+    print(filtro);
+  }
+
+  void _onFilterSelectedConfirm() {
+    widget.onSelectFilter(filterActiveChanged);
+    Navigator.pop(context);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    filterActiveChanged = widget.filtterActive;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +53,6 @@ class Filter extends StatelessWidget {
           context: context,
           builder: (BuildContext context) {
             return Container(
-              height: 200,
               color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.all(16),
@@ -24,18 +60,35 @@ class Filter extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    const Text('Selecione um filtro'),
+                    const Text(
+                      'Selecione um filtro',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                    ),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    Wrap(
+                      spacing: 8.0,
+                      runSpacing: 4.0,
+                      children: filtersList.map((filter) {
+                        return ItensFilter(
+                          text: filter,
+                          isActive: filter == filterActiveChanged,
+                          onSelect: _onFilterSelected,
+                        );
+                      }).toList(),
+                    ),
+                    const SizedBox(height: 24),
                     Row(
-                      mainAxisAlignment:
-                          MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Expanded(
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white,
                               side: const BorderSide(
-                                  color: Colors.red,
-                                  width: 1.5),
+                                  color: Colors.red, width: 1.5),
                             ),
                             onPressed: () {
                               Navigator.pop(context);
@@ -47,15 +100,19 @@ class Filter extends StatelessWidget {
                         Expanded(
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.pop(context);
+                              _onFilterSelectedConfirm();
                             },
-                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color.fromARGB(255, 3, 146, 91),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  const Color.fromARGB(255, 3, 146, 91),
                               side: const BorderSide(
                                   color: Color.fromARGB(255, 3, 146, 91),
                                   width: 1.5),
                             ),
-                            child: const Text('Confirmar', style: TextStyle(color: Colors.white),),
+                            child: const Text(
+                              'Confirmar',
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
                       ],

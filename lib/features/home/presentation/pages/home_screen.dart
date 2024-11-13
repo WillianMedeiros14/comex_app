@@ -1,3 +1,4 @@
+import 'package:comex_app/features/home/presentation/widgets/Itens_filter.dart';
 import 'package:comex_app/features/home/presentation/widgets/search.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,15 @@ class HomeScreen extends StatefulWidget {
 
 class _HomScreenState extends State<HomeScreen> {
   final controllerSearchInput = TextEditingController();
+  String filterActive = 'Todos';
+
+  void _onFilterSelected(String filtro) {
+    setState(() {
+      filterActive = filtro;
+    });
+
+    print({filtro});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,21 +83,37 @@ class _HomScreenState extends State<HomeScreen> {
             ),
             Padding(
               padding: const EdgeInsets.all(16),
-              child: Row(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: Search(controllerSearchInput: controllerSearchInput),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Search(
+                            controllerSearchInput: controllerSearchInput),
+                      ),
+                      const SizedBox(width: 17),
+                      Container(
+                        width: 50.0,
+                        height: 50.0,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Filter(
+                          filtterActive: filterActive,
+                          onSelectFilter: _onFilterSelected,
+                        ),
+                      )
+                    ],
                   ),
-                  const SizedBox(width: 17),
-                  Container(
-                    width: 50.0,
-                    height: 50.0,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Filter(),
-                  )
+                 const SizedBox(
+                    height: 10,
+                  ),
+                  ItensFilter(
+                    text: filterActive,
+                    isActive: true,
+                  ),
                 ],
               ),
             )
