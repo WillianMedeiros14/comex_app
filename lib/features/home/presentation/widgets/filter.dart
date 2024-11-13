@@ -23,12 +23,6 @@ class _FilterState extends State<Filter> {
   ];
   late String filterActiveChanged;
 
-  void _onFilterSelected(String filtro) {
-    setState(() {
-      filterActiveChanged = filtro;
-    });
-  }
-
   void _onFilterSelectedConfirm() {
     widget.onSelectFilter(filterActiveChanged);
     Navigator.pop(context);
@@ -50,79 +44,83 @@ class _FilterState extends State<Filter> {
         showModalBottomSheet<void>(
           context: context,
           builder: (BuildContext context) {
-            return Container(
-              color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    const Text(
-                      'Selecione um filtro',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    Wrap(
-                      spacing: 8.0,
-                      runSpacing: 4.0,
-                      children: filtersList.map((filter) {
-                        print({
-                          "filter": filter,
-                          "isActive": filter == filterActiveChanged,
-                        });
-                        return ItensFilter(
-                          text: filter,
-                          isActive: filter == filterActiveChanged,
-                          onSelect: _onFilterSelected,
-                        );
-                      }).toList(),
-                    ),
-                    const SizedBox(height: 24),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Expanded(
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              side: const BorderSide(
-                                  color: Colors.red, width: 1.5),
-                            ),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text('Cancelar'),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              _onFilterSelectedConfirm();
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  const Color.fromARGB(255, 3, 146, 91),
-                              side: const BorderSide(
-                                  color: Color.fromARGB(255, 3, 146, 91),
-                                  width: 1.5),
-                            ),
-                            child: const Text(
-                              'Confirmar',
-                              style: TextStyle(color: Colors.white),
+            return StatefulBuilder(
+                builder: (BuildContext context, StateSetter setState) {
+              return Container(
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      const Text(
+                        'Selecione um filtro',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w600),
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      Wrap(
+                        spacing: 8.0,
+                        runSpacing: 4.0,
+                        children: filtersList.map((filter) {
+                          print({
+                            "filter": filter,
+                            "isActive": filter == filterActiveChanged,
+                          });
+                          return ItensFilter(
+                            text: filter,
+                            isActive: filter == filterActiveChanged,
+                            onSelect: (String value) =>
+                                {setState(() => filterActiveChanged = value)},
+                          );
+                        }).toList(),
+                      ),
+                      const SizedBox(height: 24),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Expanded(
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                side: const BorderSide(
+                                    color: Colors.red, width: 1.5),
+                              ),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Cancelar'),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: ElevatedButton(
+                              onPressed: () {
+                                _onFilterSelectedConfirm();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    const Color.fromARGB(255, 3, 146, 91),
+                                side: const BorderSide(
+                                    color: Color.fromARGB(255, 3, 146, 91),
+                                    width: 1.5),
+                              ),
+                              child: const Text(
+                                'Confirmar',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            );
+              );
+            });
           },
         );
       },
