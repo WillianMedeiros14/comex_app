@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ItensFilter extends StatelessWidget {
+class ItensFilter extends StatefulWidget {
   final String text;
   final bool isActive;
   final ValueChanged<String>? onSelect;
@@ -9,10 +9,16 @@ class ItensFilter extends StatelessWidget {
       {super.key, required this.text, required this.isActive, this.onSelect});
 
   @override
+  State<ItensFilter> createState() => _ItensFilterState();
+}
+
+class _ItensFilterState extends State<ItensFilter> {
+
+  @override
   Widget build(BuildContext context) {
     return OutlinedButton(
       style: OutlinedButton.styleFrom(
-        backgroundColor: isActive
+        backgroundColor: widget.isActive
             ? Theme.of(context).primaryColor
             : Theme.of(context).scaffoldBackgroundColor,
         side: BorderSide(
@@ -20,13 +26,13 @@ class ItensFilter extends StatelessWidget {
         ),
       ),
       onPressed: () {
-        if (onSelect != null) {
-          onSelect!(text);
+        if (widget.onSelect != null) {
+          widget.onSelect!(widget.text);
         }
       },
       child: Text(
-        text,
-        style: TextStyle(color: isActive ? Colors.white : Colors.black),
+        widget.text,
+        style: TextStyle(color: widget.isActive ? Colors.white : Colors.black),
       ),
     );
   }
