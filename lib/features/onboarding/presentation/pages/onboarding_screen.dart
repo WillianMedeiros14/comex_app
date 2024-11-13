@@ -11,14 +11,12 @@ class OnboardingScreen extends StatelessWidget {
       backgroundColor: Theme.of(context).primaryColor,
       body: Stack(
         children: [
-          // Imagem de fundo, preenche a tela
           Image.asset(
             "assets/images/background_onboarding2.png",
             width: double.infinity,
-            height: screenHeight * 0.8, // Ajuste a altura conforme necessário
-            fit: BoxFit.cover, // Faz a imagem cobrir a área disponível
+            height: screenHeight * 0.8,
+            fit: BoxFit.cover,
           ),
-          // Conteúdo principal
           Padding(
             padding: const EdgeInsets.all(57),
             child: Column(
@@ -48,7 +46,7 @@ class OnboardingScreen extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () => Navigator.pushNamed(
-                        context, '/BottomNavigationScreenHome'),
+                        context, '/bottomNavigationScreenHome'),
                     child: const Text('Começar'),
                   ),
                 )

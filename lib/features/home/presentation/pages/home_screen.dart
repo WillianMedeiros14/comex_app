@@ -8,9 +8,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomScreenState extends State<HomeScreen> {
+  final controllerSearchInput = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Column(
           children: [
@@ -62,6 +65,51 @@ class _HomScreenState extends State<HomeScreen> {
                     ),
                     softWrap: true,
                   ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: controllerSearchInput,
+                      style: const TextStyle(fontSize: 14.8),
+                      decoration: InputDecoration(
+                        hintText: "Pesquisar",
+                        prefixIcon: const Icon(Icons.search),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(35),
+                          borderSide:
+                              const BorderSide(width: 0.5, color: Colors.black),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(35),
+                          borderSide:
+                              const BorderSide(width: 1.5, color: Colors.black),
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 17),
+                  Container(
+                    width: 50.0,
+                    height: 50.0,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      shape: BoxShape.circle,
+                    ),
+                    child: IconButton(
+                      icon: const Icon(Icons.filter_list),
+                      color: Colors.white,
+                      onPressed: () {
+                        print('IconButton pressed');
+                      },
+                    ),
+                  )
                 ],
               ),
             )

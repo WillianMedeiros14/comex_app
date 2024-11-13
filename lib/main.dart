@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const OnboardingScreen(),
-        '/BottomNavigationScreenHome': (context) =>
+        '/bottomNavigationScreenHome': (context) =>
             const BottomNavigationScreen(),
         '/home': (context) => const HomeScreen(),
       },
