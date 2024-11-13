@@ -66,10 +66,6 @@ class _FilterState extends State<Filter> {
                         spacing: 8.0,
                         runSpacing: 4.0,
                         children: filtersList.map((filter) {
-                          print({
-                            "filter": filter,
-                            "isActive": filter == filterActiveChanged,
-                          });
                           return ItensFilter(
                             text: filter,
                             isActive: filter == filterActiveChanged,
