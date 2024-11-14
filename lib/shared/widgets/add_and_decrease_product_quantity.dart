@@ -56,7 +56,7 @@ class AddAndDecreaseProductQuantity extends StatelessWidget {
 
 Widget _textValue() {
   return const Text(
-    '1',
+    '10',
     style: TextStyle(color: Colors.black, fontSize: 18.4),
   );
 }
