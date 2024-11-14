@@ -43,6 +43,9 @@ class _OrderCartScreenState extends State<OrderCartScreen> {
                         OrderItems(),
                         OrderItems(),
                         OrderItems(),
+                        SizedBox(
+                          height: 250,
+                        ),
                       ],
                     ),
                   ),
@@ -52,10 +55,14 @@ class _OrderCartScreenState extends State<OrderCartScreen> {
           ),
           Positioned(
             bottom: 100,
-            left: 0,
-            right: 0,
+            left: 16,
+            right: 16,
             child: Container(
               padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+              ),
               child: Column(
                 children: [
                   Row(
@@ -80,7 +87,7 @@ class _OrderCartScreenState extends State<OrderCartScreen> {
                       ),
                     ],
                   ),
-                 const  SizedBox(
+                  const SizedBox(
                     height: 31,
                   ),
                   ElevatedButton(
