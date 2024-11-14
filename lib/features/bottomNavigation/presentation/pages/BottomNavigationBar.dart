@@ -1,6 +1,7 @@
 import 'package:comex_app/features/home/presentation/pages/home_screen.dart';
 import 'package:comex_app/features/onboarding/presentation/pages/onboarding_screen.dart';
 import 'package:comex_app/features/orderCart/presentation/pages/order_cart_screen.dart';
+import 'package:comex_app/features/orderHistory/presentation/pages/order_history_screen.dart';
 import 'package:comex_app/features/profle/presentation/pages/profile_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     HomeScreen(),
     OnboardingScreen(),
     OrderCartScreen(),
-    OnboardingScreen(),
+    OrderHistoryScreen(),
     ProfileScreen(),
   ];
 
