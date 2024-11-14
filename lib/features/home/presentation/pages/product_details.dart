@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/Add_product_bottom.dart';
+import '../widgets/product_details_screen_header.dart';
+
 class ProductDetails extends StatefulWidget {
   const ProductDetails({super.key});
 
@@ -107,125 +110,8 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
             ),
           ),
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                      child: IconButton(
-                        icon: const Icon(
-                          Icons.arrow_back_ios_new,
-                          size: 30,
-                          color: Colors.black,
-                        ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ),
-                    Container(
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                      child: IconButton(
-                        icon: const Icon(
-                          Icons.favorite_border,
-                          size: 30,
-                          color: Colors.black,
-                        ),
-                        onPressed: () {
-                          print('Favoritar item');
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: 16,
-            left: 16,
-            right: 16,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    child: Row(
-                      children: [
-                        Container(
-                          decoration: const BoxDecoration(
-                            color: Colors.black,
-                            shape: BoxShape.circle,
-                          ),
-                          child: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.remove,
-                                size: 20,
-                                color: Colors.white,
-                              )),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        const Text(
-                          '1',
-                          style: TextStyle(color: Colors.black, fontSize: 18.4),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Container(
-                          decoration: const BoxDecoration(
-                            color: Colors.black,
-                            shape: BoxShape.circle,
-                          ),
-                          child: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.add,
-                                size: 20,
-                                color: Colors.white,
-                              )),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromRGBO(3, 87, 48, 1),
-                      ),
-                      child: const Text(
-                        'Confirmar',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          ProductDetailsScreenHeader(),
+          AddProductBottom(),
         ],
       ),
     );
