@@ -2,13 +2,30 @@ import 'package:comex_app/shared/widgets/order_items.dart';
 import 'package:flutter/material.dart';
 
 class OrderCartScreen extends StatefulWidget {
-  const OrderCartScreen({super.key});
+  final bool isActiveBottom;
+  const OrderCartScreen({super.key, this.isActiveBottom = true});
 
   @override
   State<OrderCartScreen> createState() => _OrderCartScreenState();
 }
 
 class _OrderCartScreenState extends State<OrderCartScreen> {
+  late bool isActiveBottom;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final args =
+        ModalRoute.of(context)?.settings.arguments as Map<String, bool>?;
+
+    if (args != null && args.containsKey('isActiveBottom')) {
+      isActiveBottom = args['isActiveBottom'] as bool;
+    } else {
+      isActiveBottom = widget.isActiveBottom;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +40,7 @@ class _OrderCartScreenState extends State<OrderCartScreen> {
               fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: !isActiveBottom,
       ),
       body: Container(
         child: Stack(children: [
@@ -54,11 +71,11 @@ class _OrderCartScreenState extends State<OrderCartScreen> {
             ],
           ),
           Positioned(
-            bottom: 100,
+            bottom: !isActiveBottom ? 16 : 100,
             left: 16,
             right: 16,
             child: Container(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16),

@@ -2,6 +2,7 @@ import 'package:comex_app/features/bottomNavigation/presentation/pages/BottomNav
 import 'package:comex_app/features/home/presentation/pages/home_screen.dart';
 import 'package:comex_app/features/home/presentation/pages/product_details.dart';
 import 'package:comex_app/features/onboarding/presentation/pages/onboarding_screen.dart';
+import 'package:comex_app/features/orderCart/presentation/pages/order_cart_screen.dart';
 import 'package:comex_app/shared/themes/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
             const BottomNavigationScreen(),
         '/home': (context) => const HomeScreen(),
         '/productDetails': (context) => const ProductDetails(),
+        '/orderCartScreen': (context) => const OrderCartScreen(),
       },
     );
   }

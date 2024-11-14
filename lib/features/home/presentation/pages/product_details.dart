@@ -13,7 +13,6 @@ class ProductDetails extends StatefulWidget {
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,37 +112,38 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
             ),
           ),
-          ProductDetailsScreenHeader(),
-          AddProductBottom(),
-
-          DraggableWidget()
+          const ProductDetailsScreenHeader(),
+          const AddProductBottom(),
+          const DraggableWidget()
         ],
       ),
     );
   }
 }
 
-
 class DraggableWidget extends StatefulWidget {
+  const DraggableWidget({super.key});
+
   @override
   _DraggableWidgetState createState() => _DraggableWidgetState();
 }
 
 class _DraggableWidgetState extends State<DraggableWidget> {
-      double _top = 150;
+  double _top = 150;
   double _left = 16;
 
   @override
   Widget build(BuildContext context) {
-
     return Positioned(
       top: _top,
       left: _left,
       child: GestureDetector(
+        onTap: () => Navigator.pushNamed(context, '/orderCartScreen',
+            arguments: {"isActiveBottom": false}),
         onPanUpdate: (details) {
           setState(() {
-            _top = max(0, _top + details.delta.dy );
-            _left =  max(0, _left +details.delta.dx );
+            _top = max(0, _top + details.delta.dy);
+            _left = max(0, _left + details.delta.dx);
           });
         },
         child: Container(
@@ -155,8 +155,7 @@ class _DraggableWidgetState extends State<DraggableWidget> {
           ),
           child: Stack(
             children: [
-             
-             const Align(
+              const Align(
                 alignment: Alignment.center,
                 child: Icon(
                   Icons.shopping_cart,
@@ -164,17 +163,17 @@ class _DraggableWidgetState extends State<DraggableWidget> {
                   color: Colors.white,
                 ),
               ),
-            
               Positioned(
-                top: 0, 
-                right: 0, 
+                top: 0,
+                right: 0,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
                     color: const Color.fromARGB(255, 255, 255, 255),
                     borderRadius: BorderRadius.circular(100),
                   ),
-                  child:const Text(
+                  child: const Text(
                     '10',
                     textAlign: TextAlign.center,
                     style: TextStyle(
