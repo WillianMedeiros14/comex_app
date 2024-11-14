@@ -139,7 +139,7 @@ class _OrderCartScreenState extends State<OrderCartScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                 const  SizedBox(
                     height: 31,
                   ),
                   ElevatedButton(
