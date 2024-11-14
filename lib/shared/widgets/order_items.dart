@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:comex_app/shared/widgets/add_and_decrease_product_quantity.dart';
 
-
 class OrderItems extends StatelessWidget {
-  const OrderItems({
-    super.key,
-  });
+  final bool isHistoric;
+  const OrderItems({super.key, this.isHistoric = false});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-          backgroundColor:
-              const Color.fromARGB(255, 255, 255, 255),
+          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
-          padding: const EdgeInsets.only(
-              left: 16, bottom: 5, right: 16, top: 5)),
+          padding:
+              const EdgeInsets.only(left: 16, bottom: 5, right: 16, top: 5)),
       onPressed: () {
         Navigator.pushNamed(context, '/productDetails');
       },
@@ -37,40 +34,67 @@ class OrderItems extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(width: 10,),
+          const SizedBox(
+            width: 10,
+          ),
           Expanded(
             child: Container(
-              padding:const EdgeInsets.only(top: 16, bottom: 16),
-               height: 100,
-              child: const Column(
+              padding: const EdgeInsets.only(top: 16, bottom: 16),
+              height: 100,
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Hamburger",
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "Hamburger",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w500),
+                      ),
+                      if (isHistoric == true)
+                        const Text(
+                          'Concluído',
+                          style: TextStyle(
+                              color: Color(0xFF09AC53),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500),
+                        ),
+                    ],
                   ),
-                  Text(
-                    "R\$ 5,00",
-                    style: TextStyle(
-                      color: Color(0xFFA72117),
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "R\$ 5,00",
+                        style: TextStyle(
+                          color: Color(0xFFA72117),
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      if (isHistoric)
+                        const Text(
+                          '14/11/2024 as 11:18 hs',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontWeight: FontWeight.normal),
+                        )
+                    ],
                   ),
                 ],
               ),
             ),
           ),
-          
-          Container(
-            color: Colors.white,
-            child:const  AddAndDecreaseProductQuantity(
-              direction: Axis.vertical,
+          if (!isHistoric)
+            Container(
+              color: Colors.transparent,
+              child: const AddAndDecreaseProductQuantity(
+                direction: Axis.vertical,
+              ),
             ),
-          ),
         ],
       ),
     );
