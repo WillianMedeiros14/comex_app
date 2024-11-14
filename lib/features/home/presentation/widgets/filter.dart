@@ -1,4 +1,4 @@
-import 'package:comex_app/features/home/presentation/widgets/Itens_filter.dart';
+import 'package:comex_app/features/home/presentation/widgets/item_filter.dart';
 import 'package:flutter/material.dart';
 
 class Filter extends StatefulWidget {
@@ -66,7 +66,7 @@ class _FilterState extends State<Filter> {
                         spacing: 8.0,
                         runSpacing: 4.0,
                         children: filtersList.map((filter) {
-                          return ItensFilter(
+                          return ItemFilter(
                             text: filter,
                             isActive: filter == filterActiveChanged,
                             onSelect: (String value) =>

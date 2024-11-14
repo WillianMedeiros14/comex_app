@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 
-class ItensFilter extends StatefulWidget {
+class ItemFilter extends StatefulWidget {
   final String text;
   final bool isActive;
   final ValueChanged<String>? onSelect;
 
-  const ItensFilter(
+  const ItemFilter(
       {super.key, required this.text, required this.isActive, this.onSelect});
 
   @override
-  State<ItensFilter> createState() => _ItensFilterState();
+  State<ItemFilter> createState() => _ItemFilterState();
 }
 
-class _ItensFilterState extends State<ItensFilter> {
-
+class _ItemFilterState extends State<ItemFilter> {
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
