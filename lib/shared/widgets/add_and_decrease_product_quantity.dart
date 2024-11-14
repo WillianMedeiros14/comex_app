@@ -26,9 +26,7 @@ class AddAndDecreaseProductQuantity extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _buildIconButton(Icons.remove, direction),
-                const SizedBox(height: 10),
                 _textValue(),
-                const SizedBox(height: 10),
                 _buildIconButton(Icons.add, direction),
               ],
             ),
