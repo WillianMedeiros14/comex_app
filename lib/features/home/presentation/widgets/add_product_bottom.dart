@@ -1,4 +1,5 @@
 
+import 'package:comex_app/shared/widgets/add_and_decrease_product_quantity.dart';
 import 'package:flutter/material.dart';
 
 class AddProductBottom extends StatelessWidget {
@@ -21,48 +22,7 @@ class AddProductBottom extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Expanded(
-              child: Row(
-                children: [
-                  Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.black,
-                      shape: BoxShape.circle,
-                    ),
-                    child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.remove,
-                          size: 20,
-                          color: Colors.white,
-                        )),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  const Text(
-                    '1',
-                    style: TextStyle(color: Colors.black, fontSize: 18.4),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.black,
-                      shape: BoxShape.circle,
-                    ),
-                    child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.add,
-                          size: 20,
-                          color: Colors.white,
-                        )),
-                  ),
-                ],
-              ),
-            ),
+            AddAndDecreaseProductQuantity(direction: Axis.horizontal,),
             const SizedBox(width: 10),
             Expanded(
               child: ElevatedButton(
