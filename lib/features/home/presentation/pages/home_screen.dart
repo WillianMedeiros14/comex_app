@@ -20,8 +20,6 @@ class _HomScreenState extends State<HomeScreen> {
     setState(() {
       filterActive = filtro;
     });
-
-    print({filtro});
   }
 
   @override

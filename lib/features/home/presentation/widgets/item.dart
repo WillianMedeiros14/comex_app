@@ -20,7 +20,9 @@ class Item extends StatelessWidget {
           padding:
               const EdgeInsets.only(top: 24, bottom: 11, left: 16, right: 16),
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, '/productDetails');
+        },
         child: Column(
           children: [
             Container(
