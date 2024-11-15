@@ -1,8 +1,13 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
+import 'package:comex_app/shared/data/model/product_model.dart';
+
 class Item extends StatelessWidget {
+  final ProductModel product;
   const Item({
     super.key,
+    required this.product,
   });
 
   @override
@@ -46,7 +51,7 @@ class Item extends StatelessWidget {
               children: [
                 SizedBox(
                   child: Text(
-                    "Hamburger",
+                    product.name,
                     style: TextStyle(
                         color: Theme.of(context).primaryColor,
                         fontSize: 15.9,
@@ -58,8 +63,8 @@ class Item extends StatelessWidget {
                 const SizedBox(
                   height: 8,
                 ),
-                const Text("Burger",
-                    style: TextStyle(
+                Text("${product.category?.name}",
+                    style: const TextStyle(
                         color: Color.fromARGB(92, 46, 44, 1),
                         fontSize: 13.3,
                         fontWeight: FontWeight.w600)),
@@ -69,7 +74,7 @@ class Item extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('R 5,00',
+                    Text("R\$ ${product.price}",
                         style: TextStyle(
                             color: Theme.of(context).primaryColor,
                             fontSize: 16.2,

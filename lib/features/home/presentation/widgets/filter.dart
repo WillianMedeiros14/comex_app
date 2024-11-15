@@ -15,7 +15,7 @@ class Filter extends StatefulWidget {
 class _FilterState extends State<Filter> {
   List<String> filtersList = [
     'Todos',
-    'Pizas',
+    'Pizza',
     'Bebidas',
     'Hamburguer',
     'Doces',
