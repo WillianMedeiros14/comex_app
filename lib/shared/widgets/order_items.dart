@@ -1,12 +1,20 @@
+import 'package:comex_app/shared/data/model/cart_item.dart';
+import 'package:comex_app/shared/stores/cart_store.dart';
 import 'package:flutter/material.dart';
 import 'package:comex_app/shared/widgets/add_and_decrease_product_quantity.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 
 class OrderItems extends StatelessWidget {
   final bool isHistoric;
-  const OrderItems({super.key, this.isHistoric = false});
+  final CartItem carItem;
+
+  const OrderItems({super.key, this.isHistoric = false, required this.carItem});
 
   @override
   Widget build(BuildContext context) {
+    final CartStore cartStore = Provider.of<CartStore>(context, listen: false);
+
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
           backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -48,10 +56,14 @@ class OrderItems extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        "Hamburger",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w500),
+                      SizedBox(
+                        child: Text(
+                          carItem.product.name,
+                          style: const TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w500),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                       if (isHistoric == true)
                         const Text(
@@ -66,14 +78,16 @@ class OrderItems extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        "R\$ 5,00",
-                        style: TextStyle(
-                          color: Color(0xFFA72117),
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+                      Observer(builder: (_) {
+                        return Text(
+                          "R\$ ${carItem.totalPrice}",
+                          style: const TextStyle(
+                            color: Color(0xFFA72117),
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        );
+                      }),
                       if (isHistoric)
                         const Text(
                           '14/11/2024 as 11:18 hs',
@@ -91,8 +105,11 @@ class OrderItems extends StatelessWidget {
           if (!isHistoric)
             Container(
               color: Colors.transparent,
-              child: const AddAndDecreaseProductQuantity(
+              child: AddAndDecreaseProductQuantity(
                 direction: Axis.vertical,
+                value: carItem.order.amount,
+                onDecrease: () => cartStore.decreaseAmount(carItem.product),
+                onIncrease: () => cartStore.increaseAmount(carItem.product),
               ),
             ),
         ],

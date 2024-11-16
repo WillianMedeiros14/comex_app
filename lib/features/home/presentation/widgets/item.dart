@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:comex_app/shared/stores/cart_store.dart';
 import 'package:flutter/material.dart';
 
 import 'package:comex_app/shared/data/model/product_model.dart';
+import 'package:provider/provider.dart';
 
 class Item extends StatelessWidget {
   final ProductModel product;
@@ -13,6 +15,7 @@ class Item extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     late double width = (MediaQuery.of(context).size.width / 2) - 24;
+    final CartStore cartStore = Provider.of<CartStore>(context, listen: false);
 
     return SizedBox(
       width: width,
@@ -80,7 +83,9 @@ class Item extends StatelessWidget {
                             fontSize: 16.2,
                             fontWeight: FontWeight.w600)),
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          cartStore.addCart(product);
+                        },
                         icon: const Icon(
                           Icons.add,
                           size: 35,

@@ -5,8 +5,10 @@ import 'package:comex_app/features/home/presentation/widgets/item.dart';
 import 'package:comex_app/features/home/presentation/widgets/search.dart';
 import 'package:comex_app/shared/data/http/http_client.dart';
 import 'package:comex_app/shared/data/repositories/product_repository.dart';
+import 'package:comex_app/shared/stores/cart_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

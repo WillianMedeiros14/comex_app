@@ -3,14 +3,24 @@ import 'package:comex_app/features/home/presentation/pages/home_screen.dart';
 import 'package:comex_app/features/home/presentation/pages/product_details.dart';
 import 'package:comex_app/features/onboarding/presentation/pages/onboarding_screen.dart';
 import 'package:comex_app/features/orderCart/presentation/pages/order_cart_screen.dart';
+import 'package:comex_app/shared/stores/cart_store.dart';
 import 'package:comex_app/shared/themes/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  runApp(const MyApp());
+
+  runApp(
+    MultiProvider(
+      providers: [
+        Provider<CartStore>(create: (_) => CartStore()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
