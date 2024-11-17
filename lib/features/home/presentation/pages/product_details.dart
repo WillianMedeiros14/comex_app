@@ -1,19 +1,47 @@
+import 'package:comex_app/features/home/presentation/stores/product_details_store.dart';
 import 'package:comex_app/features/home/presentation/widgets/draggable_widget.dart';
+import 'package:comex_app/shared/data/http/http_client.dart';
+import 'package:comex_app/shared/data/repositories/product_repository.dart';
 import 'package:comex_app/shared/stores/cart_store.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/Add_product_bottom.dart';
 import '../widgets/product_details_screen_header.dart';
 
 class ProductDetails extends StatefulWidget {
-  const ProductDetails({super.key});
+  final int? productId;
+  const ProductDetails({super.key, this.productId});
 
   @override
   State<ProductDetails> createState() => _ProductDetailsState();
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
+  final ProductDetailsStore productDetailsStore = ProductDetailsStore(
+    repository: ProductRepository(
+      client: HttpClient(),
+    ),
+  );
+
+  late int productId;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final args =
+        ModalRoute.of(context)?.settings.arguments as Map<String, int>?;
+
+    if (args != null && args.containsKey('productId')) {
+      productId = args['productId'] as int;
+      productDetailsStore.getProductById(productId: productId);
+    } else {
+      productId = widget.productId!;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final CartStore cartStore = Provider.of<CartStore>(context, listen: false);
@@ -26,86 +54,95 @@ class _ProductDetailsState extends State<ProductDetails> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.width * 0.8,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(
-                            "https://fly.metroimg.com/upload/q_85,w_700/https://uploads.metroimg.com/wp-content/uploads/2022/05/03124339/hamburguer-8.jpg"),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                    child: Observer(builder: (_) {
+                      final imageUrl = productDetailsStore.state?.image ??
+                          'https://archive.org/download/placeholder-image/placeholder-image.jpg';
+
+                      return DecoratedBox(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(imageUrl),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      );
+                    }),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Hamburger",
-                              style: TextStyle(
-                                  color: Theme.of(context).primaryColor,
-                                  fontSize: 26.7,
-                                  fontWeight: FontWeight.w600),
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
+                    child: Observer(builder: (_) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (productDetailsStore.isLoading)
+                            const Center(child: CircularProgressIndicator()),
+                          if (productDetailsStore.state == null &&
+                              !productDetailsStore.isLoading)
+                            const Center(
+                                child: Text('Nenhum produto encontrado.')),
+                          if (productDetailsStore.state != null)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.60,
+                                  child: Text(
+                                    productDetailsStore.state!.name,
+                                    style: TextStyle(
+                                        color: Theme.of(context).primaryColor,
+                                        fontSize: 26.7,
+                                        fontWeight: FontWeight.w600),
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                Text(
+                                  "R\$ ${productDetailsStore.state!.price}",
+                                  style: const TextStyle(
+                                    color: Color(0xFFA72117),
+                                    fontSize: 25.5,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
                             ),
-                            const Text(
-                              "R\$ 5,00",
-                              style: TextStyle(
-                                color: Color(0xFFA72117),
-                                fontSize: 25.5,
+                          const SizedBox(height: 8),
+                          if (productDetailsStore.state != null)
+                            Text(
+                              productDetailsStore.state!.category!.name,
+                              style: const TextStyle(
+                                color: Color.fromARGB(221, 27, 27, 21),
+                                fontSize: 14.9,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-                        const Text(
-                          "Burger",
-                          style: TextStyle(
-                            color: Color.fromARGB(221, 27, 27, 21),
-                            fontSize: 14.9,
-                            fontWeight: FontWeight.w600,
+                          const SizedBox(height: 25),
+                          const Text(
+                            "Informações:",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 25),
-                        const Text(
-                          "Informações:",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        const SizedBox(height: 5),
-                        const Text(
-                          "Pão macio com ou sem sementes de gergelim\n"
-                          "Carne bovina grelhada e suculenta\n"
-                          "Fatia de queijo derretido\n"
-                          "Folhas frescas de alface\n"
-                          "Fatias de tomate\n"
-                          "Cebola\n"
-                          "Picles crocantes\n"
-                          "Condimentos:\n"
-                          "- Maionese\n"
-                          "- Ketchup\n"
-                          "- Mostarda\n"
-                          "Acompanhamento opcional:\n"
-                          "- Batatas fritas\n"
-                          "- Bebida gelada",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14.9,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
-                      ],
-                    ),
+                          const SizedBox(height: 5),
+                          if (productDetailsStore.state != null)
+                            Text(
+                              "${productDetailsStore.state!.description}",
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 14.9,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                        ],
+                      );
+                    }),
                   ),
                   const SizedBox(
                     height: 100,

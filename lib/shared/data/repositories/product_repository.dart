@@ -33,4 +33,23 @@ class ProductRepository implements IProductRepository {
       throw Exception('Não foi possível carregar os produtos');
     }
   }
+
+  @override
+  Future<ProductModel> getProductById({required int productId}) async {
+    final response = await client.get(
+      url: 'http://192.168.1.101:8081/Product/$productId',
+    );
+
+    if (response.statusCode == 200) {
+      final body = jsonDecode(response.body);
+
+      final ProductModel product = ProductModel.fromMap(body);
+
+      return product;
+    } else if (response.statusCode == 404) {
+      throw NotFoundException('A url informada não é válida');
+    } else {
+      throw Exception('Não foi possível carregar os produtos');
+    }
+  }
 }

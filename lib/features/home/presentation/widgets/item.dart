@@ -31,7 +31,11 @@ class Item extends StatelessWidget {
               const EdgeInsets.only(top: 24, bottom: 11, left: 16, right: 16),
         ),
         onPressed: () {
-          Navigator.pushNamed(context, '/productDetails');
+          Navigator.pushNamed(
+            context,
+            '/productDetails',
+            arguments: {"productId": product.id},
+          );
         },
         child: Column(
           children: [
