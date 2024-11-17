@@ -1,5 +1,7 @@
 import 'package:comex_app/features/home/presentation/widgets/draggable_widget.dart';
+import 'package:comex_app/shared/stores/cart_store.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/Add_product_bottom.dart';
 import '../widgets/product_details_screen_header.dart';
@@ -14,6 +16,7 @@ class ProductDetails extends StatefulWidget {
 class _ProductDetailsState extends State<ProductDetails> {
   @override
   Widget build(BuildContext context) {
+    final CartStore cartStore = Provider.of<CartStore>(context, listen: false);
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
@@ -113,7 +116,8 @@ class _ProductDetailsState extends State<ProductDetails> {
           ),
           const ProductDetailsScreenHeader(),
           const AddProductBottom(),
-          const DraggableWidget()
+          if (cartStore.totalItems > 0)
+            DraggableWidget(value: cartStore.totalItems)
         ],
       ),
     );

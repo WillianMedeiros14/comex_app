@@ -3,7 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class DraggableWidget extends StatefulWidget {
-  const DraggableWidget({super.key});
+  final int value;
+  const DraggableWidget({super.key, required this.value});
 
   @override
   _DraggableWidgetState createState() => _DraggableWidgetState();
@@ -54,10 +55,10 @@ class _DraggableWidgetState extends State<DraggableWidget> {
                     color: const Color.fromARGB(255, 255, 255, 255),
                     borderRadius: BorderRadius.circular(100),
                   ),
-                  child: const Text(
-                    '10',
+                  child: Text(
+                    "${widget.value}",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
