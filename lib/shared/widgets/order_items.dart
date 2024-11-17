@@ -15,6 +15,8 @@ class OrderItems extends StatelessWidget {
   Widget build(BuildContext context) {
     final CartStore cartStore = Provider.of<CartStore>(context, listen: false);
 
+    late double width = (MediaQuery.of(context).size.width / 2) - 24;
+
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
           backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -34,9 +36,9 @@ class OrderItems extends StatelessWidget {
             height: 100,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-              image: const DecorationImage(
+              image: DecorationImage(
                 image: NetworkImage(
-                  'https://www.cnnbrasil.com.br/viagemegastronomia/wp-content/uploads/sites/5/2022/05/origem-do-hambuguer-cnn4.jpg?w=1200&h=900&crop=1',
+                  carItem.product.image,
                 ),
                 fit: BoxFit.cover,
               ),
@@ -48,7 +50,6 @@ class OrderItems extends StatelessWidget {
           Expanded(
             child: Container(
               padding: const EdgeInsets.only(top: 16, bottom: 16),
-              height: 100,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -57,6 +58,7 @@ class OrderItems extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
+                        width: width,
                         child: Text(
                           carItem.product.name,
                           style: const TextStyle(
@@ -74,6 +76,9 @@ class OrderItems extends StatelessWidget {
                               fontWeight: FontWeight.w500),
                         ),
                     ],
+                  ),
+                  const SizedBox(
+                    height: 10,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
