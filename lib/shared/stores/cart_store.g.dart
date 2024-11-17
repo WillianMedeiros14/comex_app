@@ -62,6 +62,22 @@ mixin _$CartStore on _CartStore, Store {
     });
   }
 
+  late final _$shouldShakeAtom =
+      Atom(name: '_CartStore.shouldShake', context: context);
+
+  @override
+  bool get shouldShake {
+    _$shouldShakeAtom.reportRead();
+    return super.shouldShake;
+  }
+
+  @override
+  set shouldShake(bool value) {
+    _$shouldShakeAtom.reportWrite(value, super.shouldShake, () {
+      super.shouldShake = value;
+    });
+  }
+
   late final _$_CartStoreActionController =
       ActionController(name: '_CartStore', context: context);
 
@@ -136,6 +152,7 @@ mixin _$CartStore on _CartStore, Store {
     return '''
 listItem: ${listItem},
 totalPurchase: ${totalPurchase},
+shouldShake: ${shouldShake},
 quantityItem: ${quantityItem},
 isEmptyList: ${isEmptyList},
 totalItems: ${totalItems}

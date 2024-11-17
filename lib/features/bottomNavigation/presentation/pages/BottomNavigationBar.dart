@@ -4,6 +4,7 @@ import 'package:comex_app/features/orderCart/presentation/pages/order_cart_scree
 import 'package:comex_app/features/orderHistory/presentation/pages/order_history_screen.dart';
 import 'package:comex_app/features/profle/presentation/pages/profile_screen.dart';
 import 'package:comex_app/shared/stores/cart_store.dart';
+import 'package:comex_app/shared/widgets/shakin_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
@@ -71,37 +72,42 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                       backgroundColor: Theme.of(context).primaryColor,
                     ),
                     BottomNavigationBarItem(
-                      icon: Stack(
-                        children: [
-                          const Icon(Icons.shopping_cart),
-                          Positioned(
-                            right: 0,
-                            top: 0,
-                            child: Container(
-                              padding: const EdgeInsets.all(2),
-                              decoration: const BoxDecoration(
-                                color: Colors.red,
-                                shape: BoxShape.circle,
-                              ),
-                              constraints: const BoxConstraints(
-                                minWidth: 16,
-                                minHeight: 16,
-                              ),
-                              child: Observer(builder: (_) {
-                                return Text(
-                                  '${cartStore.totalItems}',
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
+                      icon: Observer(builder: (_) {
+                        return ShakingWidget(
+                          shouldShake: cartStore.shouldShake,
+                          child: Stack(
+                            children: [
+                              const Icon(Icons.shopping_cart),
+                              Positioned(
+                                right: 0,
+                                top: 0,
+                                child: Container(
+                                  padding: const EdgeInsets.all(2),
+                                  decoration: const BoxDecoration(
+                                    color: Colors.red,
+                                    shape: BoxShape.circle,
                                   ),
-                                  textAlign: TextAlign.center,
-                                );
-                              }),
-                            ),
+                                  constraints: const BoxConstraints(
+                                    minWidth: 16,
+                                    minHeight: 16,
+                                  ),
+                                  child: Observer(builder: (_) {
+                                    return Text(
+                                      '${cartStore.totalItems}',
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    );
+                                  }),
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        );
+                      }),
                       label: 'Cart',
                       backgroundColor: Theme.of(context).primaryColor,
                     ),

@@ -24,6 +24,17 @@ abstract class _CartStore with Store {
   int get totalItems =>
       listItem.fold(0, (total, item) => total + item.order.amount);
 
+  @observable
+  bool shouldShake = false;
+
+  void triggerShake() {
+    shouldShake = true;
+
+    Future.delayed(const Duration(milliseconds: 600), () {
+      shouldShake = false;
+    });
+  }
+
   @action
   void addCart(ProductModel item) {
     final matchingItems =
@@ -40,6 +51,7 @@ abstract class _CartStore with Store {
     }
 
     updateTotalPurchase();
+    triggerShake();
   }
 
   @action
