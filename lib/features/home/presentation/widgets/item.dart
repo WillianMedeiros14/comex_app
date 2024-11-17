@@ -38,9 +38,9 @@ class Item extends StatelessWidget {
               height: width * 0.7,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                image: const DecorationImage(
+                image: DecorationImage(
                   image: NetworkImage(
-                    'https://www.cnnbrasil.com.br/viagemegastronomia/wp-content/uploads/sites/5/2022/05/origem-do-hambuguer-cnn4.jpg?w=1200&h=900&crop=1',
+                    product.image,
                   ),
                   fit: BoxFit.cover,
                 ),

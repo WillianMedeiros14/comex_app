@@ -6,6 +6,7 @@ class ProductModel {
   final String? description;
   final double price;
   final int availableQuantity;
+  final String image;
   final int categoryId;
 
   final CategoryModel? category;
@@ -16,6 +17,7 @@ class ProductModel {
     this.description,
     required this.price,
     required this.availableQuantity,
+    required this.image,
     required this.categoryId,
     this.category,
   });
@@ -27,6 +29,7 @@ class ProductModel {
       description: map['description'],
       price: map['price'].toDouble(),
       availableQuantity: map['availableQuantity'],
+      image: map['image'],
       categoryId: map['categoryId'],
       category: map['category'] != null
           ? CategoryModel.fromMap(map['category'])
