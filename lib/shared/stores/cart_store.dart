@@ -26,9 +26,19 @@ abstract class _CartStore with Store {
 
   @action
   void addCart(ProductModel item) {
-    CartItem newItem = CartItem(
-        product: item, order: CreateOrder(amount: 1, productId: item.id));
-    listItem.add(newItem);
+    final matchingItems =
+        listItem.where((cartItem) => cartItem.product.id == item.id);
+
+    if (matchingItems.isNotEmpty) {
+      increaseAmount(matchingItems.first.product);
+    } else {
+      CartItem newItem = CartItem(
+        product: item,
+        order: CreateOrder(amount: 1, productId: item.id),
+      );
+      listItem.add(newItem);
+    }
+
     updateTotalPurchase();
   }
 
