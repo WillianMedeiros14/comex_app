@@ -20,6 +20,10 @@ abstract class _CartStore with Store {
   @computed
   bool get isEmptyList => listItem.isEmpty;
 
+  @computed
+  int get totalItems =>
+      listItem.fold(0, (total, item) => total + item.order.amount);
+
   @action
   void addCart(ProductModel item) {
     CartItem newItem = CartItem(

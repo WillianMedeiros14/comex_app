@@ -23,6 +23,12 @@ mixin _$CartStore on _CartStore, Store {
       (_$isEmptyListComputed ??= Computed<bool>(() => super.isEmptyList,
               name: '_CartStore.isEmptyList'))
           .value;
+  Computed<int>? _$totalItemsComputed;
+
+  @override
+  int get totalItems => (_$totalItemsComputed ??=
+          Computed<int>(() => super.totalItems, name: '_CartStore.totalItems'))
+      .value;
 
   late final _$listItemAtom =
       Atom(name: '_CartStore.listItem', context: context);
@@ -131,7 +137,8 @@ mixin _$CartStore on _CartStore, Store {
 listItem: ${listItem},
 totalPurchase: ${totalPurchase},
 quantityItem: ${quantityItem},
-isEmptyList: ${isEmptyList}
+isEmptyList: ${isEmptyList},
+totalItems: ${totalItems}
     ''';
   }
 }

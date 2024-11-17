@@ -1,10 +1,12 @@
 import 'package:comex_app/features/favorites/presentation/pages/favorites_screen.dart';
 import 'package:comex_app/features/home/presentation/pages/home_screen.dart';
-import 'package:comex_app/features/onboarding/presentation/pages/onboarding_screen.dart';
 import 'package:comex_app/features/orderCart/presentation/pages/order_cart_screen.dart';
 import 'package:comex_app/features/orderHistory/presentation/pages/order_history_screen.dart';
 import 'package:comex_app/features/profle/presentation/pages/profile_screen.dart';
+import 'package:comex_app/shared/stores/cart_store.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
   const BottomNavigationScreen({super.key});
@@ -32,6 +34,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final CartStore cartStore = Provider.of<CartStore>(context, listen: false);
+
     return SafeArea(
       child: Stack(
         children: [
@@ -67,7 +71,37 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                       backgroundColor: Theme.of(context).primaryColor,
                     ),
                     BottomNavigationBarItem(
-                      icon: const Icon(Icons.shopping_cart),
+                      icon: Stack(
+                        children: [
+                          const Icon(Icons.shopping_cart),
+                          Positioned(
+                            right: 0,
+                            top: 0,
+                            child: Container(
+                              padding: const EdgeInsets.all(2),
+                              decoration: const BoxDecoration(
+                                color: Colors.red,
+                                shape: BoxShape.circle,
+                              ),
+                              constraints: const BoxConstraints(
+                                minWidth: 16,
+                                minHeight: 16,
+                              ),
+                              child: Observer(builder: (_) {
+                                return Text(
+                                  '${cartStore.totalItems}',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                );
+                              }),
+                            ),
+                          ),
+                        ],
+                      ),
                       label: 'Cart',
                       backgroundColor: Theme.of(context).primaryColor,
                     ),
