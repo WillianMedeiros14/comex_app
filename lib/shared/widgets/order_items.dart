@@ -26,7 +26,11 @@ class OrderItems extends StatelessWidget {
           padding:
               const EdgeInsets.only(left: 16, bottom: 5, right: 16, top: 5)),
       onPressed: () {
-        Navigator.pushNamed(context, '/productDetails');
+        Navigator.pushNamed(
+          context,
+          '/productDetails',
+          arguments: {"productId": carItem.product.id},
+        );
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
