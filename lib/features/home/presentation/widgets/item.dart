@@ -1,8 +1,9 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:comex_app/features/home/presentation/stores/item_product_store.dart';
 import 'package:comex_app/shared/stores/cart_store.dart';
 import 'package:flutter/material.dart';
 
 import 'package:comex_app/shared/data/model/product_model.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
 class Item extends StatelessWidget {
@@ -16,6 +17,7 @@ class Item extends StatelessWidget {
   Widget build(BuildContext context) {
     late double width = (MediaQuery.of(context).size.width / 2) - 24;
     final CartStore cartStore = Provider.of<CartStore>(context, listen: false);
+    final itemProductStore = ItemProductStore(cartStore, product.id);
 
     return SizedBox(
       width: width,
@@ -33,18 +35,63 @@ class Item extends StatelessWidget {
         },
         child: Column(
           children: [
-            Container(
-              width: width,
-              height: width * 0.7,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                image: DecorationImage(
-                  image: NetworkImage(
-                    product.image,
+            Stack(
+              children: [
+                Container(
+                  width: width,
+                  height: width * 0.7,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        product.image,
+                      ),
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                  fit: BoxFit.cover,
                 ),
-              ),
+                Observer(builder: (_) {
+                  return Positioned(
+                    right: 0,
+                    top: 0,
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 300),
+                      transitionBuilder:
+                          (Widget child, Animation<double> animation) {
+                        return ScaleTransition(
+                          scale: animation,
+                          child: child,
+                        );
+                      },
+                      child: itemProductStore.totalItems > 0
+                          ? Container(
+                              key: const ValueKey('badge'),
+                              padding: const EdgeInsets.all(2),
+                              decoration: const BoxDecoration(
+                                color: Colors.red,
+                                shape: BoxShape.circle,
+                              ),
+                              constraints: const BoxConstraints(
+                                minWidth: 20,
+                                minHeight: 20,
+                              ),
+                              child: Observer(builder: (_) {
+                                return Text(
+                                  '${itemProductStore.totalItems}',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                );
+                              }),
+                            )
+                          : const SizedBox.shrink(),
+                    ),
+                  );
+                }),
+              ],
             ),
             const SizedBox(
               height: 25,
