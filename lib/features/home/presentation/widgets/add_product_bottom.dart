@@ -14,7 +14,7 @@ class AddProductBottom extends StatelessWidget {
   Widget build(BuildContext context) {
     final CartStore cartStore = Provider.of<CartStore>(context, listen: false);
     final itemProductStore = ItemProductStore(cartStore, product.id);
-    print({cartStore});
+
     return Positioned(
       bottom: 16,
       left: 16,

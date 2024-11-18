@@ -1,5 +1,9 @@
-import 'package:comex_app/shared/widgets/order_items.dart';
+import 'package:comex_app/features/orderHistory/presentation/stores/order_store.dart';
+import 'package:comex_app/features/orderHistory/presentation/widgets/order_item_history.dart';
+import 'package:comex_app/shared/data/http/http_client.dart';
+import 'package:comex_app/shared/data/repositories/order_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class OrderHistoryScreen extends StatefulWidget {
   const OrderHistoryScreen({super.key});
@@ -9,6 +13,19 @@ class OrderHistoryScreen extends StatefulWidget {
 }
 
 class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
+  final OrderStore orderStore = OrderStore(
+    repository: OrderRepository(
+      client: HttpClient(),
+    ),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+
+    orderStore.getOrders();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,43 +43,37 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
         automaticallyImplyLeading: false,
       ),
       body: Container(
-        child: const Stack(children: [
+        child: Stack(children: [
           Column(
             children: [
               Expanded(
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: EdgeInsets.all(16),
-                    // child: Wrap(
-                    //   spacing: 16,
-                    //   runSpacing: 16,
-                    //   children: [
-                    //     OrderItems(
-                    //       isHistoric: true,
-                    //     ),
-                    //     OrderItems(
-                    //       isHistoric: true,
-                    //     ),
-                    //     OrderItems(
-                    //       isHistoric: true,
-                    //     ),
-                    //     OrderItems(
-                    //       isHistoric: true,
-                    //     ),
-                    //     OrderItems(
-                    //       isHistoric: true,
-                    //     ),
-                    //     OrderItems(
-                    //       isHistoric: true,
-                    //     ),
-                    //     OrderItems(
-                    //       isHistoric: true,
-                    //     ),
-                    //     SizedBox(
-                    //       height: 100,
-                    //     ),
-                    //   ],
-                    // ),
+                    padding:
+                        const EdgeInsets.only(left: 16, right: 16, bottom: 120),
+                    child: Observer(
+                      builder: (_) {
+                        if (orderStore.isLoading) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+
+                        if (orderStore.state.isEmpty) {
+                          return const Center(
+                              child: Text('Nenhum pedido encontrado.'));
+                        }
+
+                        return Wrap(
+                          spacing: 16,
+                          runSpacing: 16,
+                          children: orderStore.state.map((order) {
+                            return OrderItemHistory(
+                              order: order,
+                            );
+                          }).toList(),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
