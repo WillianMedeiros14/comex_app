@@ -19,13 +19,13 @@ class AddAndDecreaseProductQuantity extends StatelessWidget {
     return Expanded(
       child: direction == Axis.horizontal
           ? Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildIconButton(Icons.remove, direction, onIncrease),
+                _buildIconButton(Icons.remove, direction, onDecrease),
                 const SizedBox(width: 10),
                 _textValue(value: value),
                 const SizedBox(width: 10),
-                _buildIconButton(Icons.add, direction, onDecrease),
+                _buildIconButton(Icons.add, direction, onIncrease),
               ],
             )
           : Column(

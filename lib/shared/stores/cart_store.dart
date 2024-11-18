@@ -84,7 +84,7 @@ abstract class _CartStore with Store {
   @action
   void increaseAmount(ProductModel item) {
     final CartItem cartItem =
-        listItem.firstWhere((cartItem) => cartItem.product == item);
+        listItem.firstWhere((cartItem) => cartItem.product.id == item.id);
 
     cartItem.order.amount += 1;
     updateListItems(cartItem);
@@ -94,7 +94,7 @@ abstract class _CartStore with Store {
   @action
   void decreaseAmount(ProductModel item) {
     final CartItem cartItem =
-        listItem.firstWhere((cartItem) => cartItem.product == item);
+        listItem.firstWhere((cartItem) => cartItem.product.id == item.id);
 
     if (cartItem.order.amount > 1) {
       cartItem.order.amount -= 1;

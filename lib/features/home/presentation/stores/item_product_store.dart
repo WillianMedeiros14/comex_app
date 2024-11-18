@@ -8,14 +8,14 @@ part 'item_product_store.g.dart';
 class ItemProductStore = _ItemProductStore with _$ItemProductStore;
 
 abstract class _ItemProductStore with Store {
-  final CartStore cartStore;
+  final CartStore _cartStore;
   final int id;
 
-  _ItemProductStore(this.cartStore, this.id);
+  _ItemProductStore(this._cartStore, this.id);
 
   int get totalItems {
     try {
-      return cartStore.listItem
+      return _cartStore.listItem
           .where((item) => item.product.id == id)
           .map((item) => item.order.amount)
           .first;
