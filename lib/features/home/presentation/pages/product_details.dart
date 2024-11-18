@@ -130,9 +130,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                                   ),
                                 ),
                               const SizedBox(height: 25),
-                              Text(
-                                "Informações:  ${itemProductStore.totalItems}",
-                                style: const TextStyle(
+                              const Text(
+                                "Informações: ",
+                                style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
@@ -163,7 +163,10 @@ class _ProductDetailsState extends State<ProductDetails> {
               if (productDetailsStore.state != null)
                 AddProductBottom(product: productDetailsStore.state!),
               if (productDetailsStore.state != null && cartStore.totalItems > 0)
-                DraggableWidget(value: cartStore.totalItems),
+                DraggableWidget(
+                  value: cartStore.totalItems,
+                  shouldShake: cartStore.shouldShake,
+                ),
             ],
           );
         },

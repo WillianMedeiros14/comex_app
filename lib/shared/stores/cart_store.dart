@@ -89,6 +89,7 @@ abstract class _CartStore with Store {
     cartItem.order.amount += 1;
     updateListItems(cartItem);
     updateTotalPurchase();
+    triggerShake();
   }
 
   @action
@@ -100,6 +101,7 @@ abstract class _CartStore with Store {
       cartItem.order.amount -= 1;
       updateTotalPurchase();
       updateListItems(cartItem);
+      triggerShake();
     } else {
       listItem.remove(cartItem);
       updateTotalPurchase();

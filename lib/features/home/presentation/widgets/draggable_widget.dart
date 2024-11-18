@@ -1,10 +1,13 @@
 import 'dart:math';
 
+import 'package:comex_app/shared/widgets/shakin_widget.dart';
 import 'package:flutter/material.dart';
 
 class DraggableWidget extends StatefulWidget {
+  final bool shouldShake;
   final int value;
-  const DraggableWidget({super.key, required this.value});
+  const DraggableWidget(
+      {super.key, required this.value, required this.shouldShake});
 
   @override
   _DraggableWidgetState createState() => _DraggableWidgetState();
@@ -28,45 +31,48 @@ class _DraggableWidgetState extends State<DraggableWidget> {
             _left = max(0, _left + details.delta.dx);
           });
         },
-        child: Container(
-          width: 65,
-          height: 65,
-          decoration: const BoxDecoration(
-            color: Color.fromARGB(255, 192, 35, 24),
-            shape: BoxShape.circle,
-          ),
-          child: Stack(
-            children: [
-              const Align(
-                alignment: Alignment.center,
-                child: Icon(
-                  Icons.shopping_cart,
-                  size: 35,
-                  color: Colors.white,
-                ),
-              ),
-              Positioned(
-                top: 0,
-                right: 0,
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 255, 255, 255),
-                    borderRadius: BorderRadius.circular(100),
+        child: ShakingWidget(
+          shouldShake: widget.shouldShake,
+          child: Container(
+            width: 65,
+            height: 65,
+            decoration: const BoxDecoration(
+              color: Color.fromARGB(255, 192, 35, 24),
+              shape: BoxShape.circle,
+            ),
+            child: Stack(
+              children: [
+                const Align(
+                  alignment: Alignment.center,
+                  child: Icon(
+                    Icons.shopping_cart,
+                    size: 35,
+                    color: Colors.white,
                   ),
-                  child: Text(
-                    "${widget.value}",
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                ),
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 255, 255, 255),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: Text(
+                      "${widget.value}",
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
