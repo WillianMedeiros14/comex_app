@@ -1,3 +1,4 @@
+import 'package:comex_app/features/orderHistory/presentation/widgets/order_status_widget.dart';
 import 'package:comex_app/shared/data/model/order_model.dart';
 import 'package:comex_app/shared/utils/date_format.dart';
 import 'package:comex_app/shared/utils/first_three_names.dart';
@@ -33,7 +34,7 @@ class OrderItemHistory extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            width: 100,
+            width: 95,
             height: 100,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
@@ -56,8 +57,8 @@ class OrderItemHistory extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(
-                        width: width,
+                      Container(
+                        width: width * 0.92,
                         child: Text(
                           firstThreeNamesOrderItems(order.orderItems),
                           style: const TextStyle(
@@ -66,13 +67,17 @@ class OrderItemHistory extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      Text(
-                        order.status,
-                        style: const TextStyle(
-                            color: Color(0xFF09AC53),
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500),
-                      ),
+
+                      OrderStatusWidget(
+                        status: order.status,
+                      )
+                      // Text(
+                      //   order.status,
+                      //   style: const TextStyle(
+                      //       color: Color(0xFF09AC53),
+                      //       fontSize: 12,
+                      //       fontWeight: FontWeight.w500),
+                      // ),
                     ],
                   ),
                   const SizedBox(
