@@ -1,4 +1,6 @@
 import 'package:comex_app/shared/data/model/order_model.dart';
+import 'package:comex_app/shared/utils/date_format.dart';
+import 'package:comex_app/shared/utils/first_three_names.dart';
 import 'package:comex_app/shared/utils/number_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -56,9 +58,9 @@ class OrderItemHistory extends StatelessWidget {
                     children: [
                       SizedBox(
                         width: width,
-                        child: const Text(
-                          "teste",
-                          style: TextStyle(
+                        child: Text(
+                          firstThreeNamesOrderItems(order.orderItems),
+                          style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.w500),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
@@ -90,7 +92,7 @@ class OrderItemHistory extends StatelessWidget {
                         );
                       }),
                       Text(
-                        '${order.creationDate}',
+                        formatDateTime(order.creationDate),
                         style: const TextStyle(
                             color: Colors.black,
                             fontSize: 12,
