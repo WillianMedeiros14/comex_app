@@ -3,6 +3,7 @@ import 'package:comex_app/features/home/presentation/pages/home_screen.dart';
 import 'package:comex_app/features/home/presentation/pages/product_details.dart';
 import 'package:comex_app/features/onboarding/presentation/pages/onboarding_screen.dart';
 import 'package:comex_app/features/orderCart/presentation/pages/order_cart_screen.dart';
+import 'package:comex_app/features/orderHistory/presentation/pages/order_history_details_screen.dart';
 import 'package:comex_app/shared/stores/cart_store.dart';
 import 'package:comex_app/shared/themes/theme.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,8 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomeScreen(),
         '/productDetails': (context) => const ProductDetails(),
         '/orderCartScreen': (context) => const OrderCartScreen(),
+        '/orderHistoryDetailsScreen': (context) =>
+            const OrderHistoryDetailsScreen(),
       },
     );
   }

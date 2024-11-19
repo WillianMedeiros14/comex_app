@@ -26,8 +26,8 @@ class OrderItemHistory extends StatelessWidget {
       onPressed: () {
         Navigator.pushNamed(
           context,
-          '/productDetails',
-          arguments: {"productId": order.id},
+          '/orderHistoryDetailsScreen',
+          // arguments: {"productId": order.id},
         );
       },
       child: Row(
