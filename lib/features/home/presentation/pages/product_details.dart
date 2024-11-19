@@ -4,6 +4,7 @@ import 'package:comex_app/features/home/presentation/widgets/draggable_widget.da
 import 'package:comex_app/shared/data/http/http_client.dart';
 import 'package:comex_app/shared/data/repositories/product_repository.dart';
 import 'package:comex_app/shared/stores/cart_store.dart';
+import 'package:comex_app/shared/utils/number_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
@@ -110,7 +111,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                                       ),
                                     ),
                                     Text(
-                                      "R\$ ${productDetailsStore.state!.price}",
+                                      formatPriceToTwoDecimalPlaces(
+                                          productDetailsStore.state!.price),
                                       style: const TextStyle(
                                         color: Color(0xFFA72117),
                                         fontSize: 25.5,

@@ -1,4 +1,5 @@
 import 'package:comex_app/shared/stores/cart_store.dart';
+import 'package:comex_app/shared/utils/number_format.dart';
 import 'package:comex_app/shared/widgets/order_items.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -112,7 +113,7 @@ class _OrderCartScreenState extends State<OrderCartScreen> {
                     ),
                     Observer(builder: (_) {
                       return Text(
-                        "R\$ ${cartStore.totalPurchase}",
+                        formatPriceToTwoDecimalPlaces(cartStore.totalPurchase),
                         style: const TextStyle(
                           color: Color(0xFFA72117),
                           fontSize: 25.5,

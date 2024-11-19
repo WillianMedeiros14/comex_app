@@ -1,5 +1,6 @@
 import 'package:comex_app/features/home/presentation/stores/item_product_store.dart';
 import 'package:comex_app/shared/stores/cart_store.dart';
+import 'package:comex_app/shared/utils/number_format.dart';
 import 'package:flutter/material.dart';
 
 import 'package:comex_app/shared/data/model/product_model.dart';
@@ -128,7 +129,7 @@ class Item extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("R\$ ${product.price}",
+                    Text(formatPriceToTwoDecimalPlaces(product.price),
                         style: TextStyle(
                             color: Theme.of(context).primaryColor,
                             fontSize: 16.2,

@@ -1,9 +1,11 @@
 import 'package:comex_app/shared/data/model/cart_item.dart';
 import 'package:comex_app/shared/stores/cart_store.dart';
+import 'package:comex_app/shared/utils/number_format.dart';
 import 'package:flutter/material.dart';
 import 'package:comex_app/shared/widgets/add_and_decrease_product_quantity.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class OrderItems extends StatelessWidget {
   final bool isHistoric;
@@ -89,7 +91,7 @@ class OrderItems extends StatelessWidget {
                     children: [
                       Observer(builder: (_) {
                         return Text(
-                          "R\$ ${carItem.totalPrice}",
+                          formatPriceToTwoDecimalPlaces(carItem.totalPrice),
                           style: const TextStyle(
                             color: Color(0xFFA72117),
                             fontSize: 20,

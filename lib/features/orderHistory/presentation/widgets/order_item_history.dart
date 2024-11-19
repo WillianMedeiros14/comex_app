@@ -1,4 +1,5 @@
 import 'package:comex_app/shared/data/model/order_model.dart';
+import 'package:comex_app/shared/utils/number_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -80,7 +81,7 @@ class OrderItemHistory extends StatelessWidget {
                     children: [
                       Observer(builder: (_) {
                         return Text(
-                          "R\$ ${order.total}",
+                          formatPriceToTwoDecimalPlaces(order.total),
                           style: const TextStyle(
                             color: Color(0xFFA72117),
                             fontSize: 20,

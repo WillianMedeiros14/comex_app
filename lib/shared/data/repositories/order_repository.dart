@@ -13,7 +13,7 @@ class OrderRepository implements IOrderRepository {
   @override
   Future<List<OrderModel>> getOrders() async {
     final response = await client.get(
-      url: 'http://192.168.1.101:8082/api/Order',
+      url: 'http://192.168.51.106:8082/api/Order',
     );
 
     if (response.statusCode == 200) {
@@ -37,7 +37,7 @@ class OrderRepository implements IOrderRepository {
   @override
   Future<OrderModel> getOrderById({required int orderId}) async {
     final response = await client.get(
-      url: 'http://192.168.1.101:8082/api/Order/$orderId',
+      url: 'http://192.168.51.106:8082/api/Order/$orderId',
     );
 
     if (response.statusCode == 200) {
