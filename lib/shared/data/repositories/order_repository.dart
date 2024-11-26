@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:comex_app/features/orderCart/data/Model/create_order_model.dart';
 import 'package:comex_app/shared/data/http/http_client.dart';
 import 'package:comex_app/shared/data/model/order_model.dart';
 import 'package:comex_app/shared/data/repositories/i_order_repository.dart';
@@ -50,6 +51,22 @@ class OrderRepository implements IOrderRepository {
       throw NotFoundException('A url informada não é válida');
     } else {
       throw Exception('Não foi possível carregar o pedido');
+    }
+  }
+
+  @override
+  Future createOrder({required OrderCreateModel orderCreate}) async {
+    final response = await client.post(
+      url: 'http://192.168.51.106:8082/api/Order',
+      body: orderCreate.toJson(),
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else if (response.statusCode == 404) {
+      throw NotFoundException('A url informada não é válida');
+    } else {
+      throw Exception('Não foi possível criar o pedido');
     }
   }
 }
