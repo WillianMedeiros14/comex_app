@@ -9,6 +9,14 @@ part of 'order_details_by_id_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$OrderDetailsByIdStore on _OrderDetailsByIdStore, Store {
+  Computed<int>? _$totalItemsComputed;
+
+  @override
+  int get totalItems =>
+      (_$totalItemsComputed ??= Computed<int>(() => super.totalItems,
+              name: '_OrderDetailsByIdStore.totalItems'))
+          .value;
+
   late final _$isLoadingAtom =
       Atom(name: '_OrderDetailsByIdStore.isLoading', context: context);
 
@@ -41,19 +49,19 @@ mixin _$OrderDetailsByIdStore on _OrderDetailsByIdStore, Store {
     });
   }
 
-  late final _$isNotEmpiyAtom =
-      Atom(name: '_OrderDetailsByIdStore.isNotEmpiy', context: context);
+  late final _$orderItemsAtom =
+      Atom(name: '_OrderDetailsByIdStore.orderItems', context: context);
 
   @override
-  bool get isNotEmpiy {
-    _$isNotEmpiyAtom.reportRead();
-    return super.isNotEmpiy;
+  List<OrderItemModel> get orderItems {
+    _$orderItemsAtom.reportRead();
+    return super.orderItems;
   }
 
   @override
-  set isNotEmpiy(bool value) {
-    _$isNotEmpiyAtom.reportWrite(value, super.isNotEmpiy, () {
-      super.isNotEmpiy = value;
+  set orderItems(List<OrderItemModel> value) {
+    _$orderItemsAtom.reportWrite(value, super.orderItems, () {
+      super.orderItems = value;
     });
   }
 
@@ -87,8 +95,9 @@ mixin _$OrderDetailsByIdStore on _OrderDetailsByIdStore, Store {
     return '''
 isLoading: ${isLoading},
 state: ${state},
-isNotEmpiy: ${isNotEmpiy},
-error: ${error}
+orderItems: ${orderItems},
+error: ${error},
+totalItems: ${totalItems}
     ''';
   }
 }

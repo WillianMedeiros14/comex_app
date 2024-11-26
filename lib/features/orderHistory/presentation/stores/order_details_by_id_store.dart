@@ -1,3 +1,4 @@
+import 'package:comex_app/shared/data/model/order_item_model.dart';
 import 'package:comex_app/shared/data/model/order_model.dart';
 import 'package:comex_app/shared/data/repositories/i_order_repository.dart';
 import 'package:comex_app/shared/errors/exceptions.dart';
@@ -20,7 +21,11 @@ abstract class _OrderDetailsByIdStore with Store {
   OrderModel? state;
 
   @observable
-  bool isNotEmpiy = true;
+  List<OrderItemModel> orderItems = ObservableList<OrderItemModel>();
+
+  @computed
+  int get totalItems =>
+      orderItems.fold(0, (total, item) => total + item.amount);
 
   @observable
   String error = '';
@@ -29,26 +34,21 @@ abstract class _OrderDetailsByIdStore with Store {
   Future<void> getOrderById({required int orderId}) async {
     isLoading = true;
     error = '';
-    isNotEmpiy = true;
 
     try {
       final result = await repository.getOrderById(orderId: orderId);
 
-      print("Pedido");
-      print(result.total);
+      orderItems = result.orderItems;
 
       state = result;
-      isNotEmpiy = false;
     } on NotFoundException catch (e) {
       print("rro");
       print(e);
       error = e.message;
-      isNotEmpiy = true;
     } catch (e) {
       print("rro");
       print(e);
       error = e.toString();
-      isNotEmpiy = true;
     } finally {
       isLoading = false;
     }

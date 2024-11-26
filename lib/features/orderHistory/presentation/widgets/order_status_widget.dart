@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 
 class OrderStatusWidget extends StatelessWidget {
   final OrderStatusEnum status;
-  const OrderStatusWidget({super.key, required this.status});
+  final double fontSize;
+  const OrderStatusWidget(
+      {super.key, required this.status, this.fontSize = 12});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class OrderStatusWidget extends StatelessWidget {
       statusText,
       style: TextStyle(
           color: getStatusColor(status),
-          fontSize: 12,
+          fontSize: fontSize,
           fontWeight: FontWeight.w500),
     );
   }

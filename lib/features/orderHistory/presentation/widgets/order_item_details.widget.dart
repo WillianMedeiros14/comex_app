@@ -1,11 +1,11 @@
-import 'package:comex_app/features/orderHistory/presentation/widgets/order_status_widget.dart';
+// import 'package:comex_app/features/orderHistory/presentation/widgets/order_status_widget.dart';
 import 'package:comex_app/shared/data/model/order_item_model.dart';
-import 'package:comex_app/shared/data/model/order_model.dart';
-import 'package:comex_app/shared/utils/date_format.dart';
-import 'package:comex_app/shared/utils/first_three_names.dart';
+// import 'package:comex_app/shared/data/model/order_model.dart';
+// import 'package:comex_app/shared/utils/date_format.dart';
+// import 'package:comex_app/shared/utils/first_three_names.dart';
 import 'package:comex_app/shared/utils/number_format.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
+// import 'package:flutter_mobx/flutter_mobx.dart';
 
 class OrderItemDetailsWidget extends StatelessWidget {
   final OrderItemModel order;
@@ -14,8 +14,6 @@ class OrderItemDetailsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    late double width = (MediaQuery.of(context).size.width / 2) - 24;
-
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
           backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -25,11 +23,11 @@ class OrderItemDetailsWidget extends StatelessWidget {
           padding:
               const EdgeInsets.only(left: 16, bottom: 5, right: 16, top: 5)),
       onPressed: () {
-        // Navigator.pushNamed(
-        //   context,
-        //   '/orderHistoryDetailsScreen',
-        //   // arguments: {"productId": order.id},
-        // );
+        Navigator.pushNamed(
+          context,
+          '/productDetails',
+          arguments: {"productId": order.productId},
+        );
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,7 +57,7 @@ class OrderItemDetailsWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        width: width * 0.92,
+                        width: MediaQuery.of(context).size.width * 0.54,
                         child: Text(
                           order.nameProduct,
                           style: const TextStyle(
@@ -68,17 +66,6 @@ class OrderItemDetailsWidget extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-
-                      // OrderStatusWidget(
-                      //   status: order.status,
-                      // )
-                      // Text(
-                      //   order.status,
-                      //   style: const TextStyle(
-                      //       color: Color(0xFF09AC53),
-                      //       fontSize: 12,
-                      //       fontWeight: FontWeight.w500),
-                      // ),
                     ],
                   ),
                   const SizedBox(
@@ -88,20 +75,20 @@ class OrderItemDetailsWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        formatPriceToTwoDecimalPlaces(order!.total),
+                        formatPriceToTwoDecimalPlaces(order.total),
                         style: const TextStyle(
                           color: Color(0xFFA72117),
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      // Text(
-                      //   formatDateTime(order.creationDate),
-                      //   style: const TextStyle(
-                      //       color: Colors.black,
-                      //       fontSize: 12,
-                      //       fontWeight: FontWeight.normal),
-                      // )
+                      Text(
+                        '${order.amount}',
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600),
+                      )
                     ],
                   ),
                 ],
