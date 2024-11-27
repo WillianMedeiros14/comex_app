@@ -88,7 +88,7 @@ class _HomScreenState extends State<HomeScreen> {
                             text: "Escolha seus ",
                           ),
                           TextSpan(
-                            text: "items",
+                            text: "itens",
                             style: TextStyle(color: Colors.red),
                           ),
                           TextSpan(
