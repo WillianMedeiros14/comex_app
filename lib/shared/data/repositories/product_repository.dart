@@ -14,7 +14,7 @@ class ProductRepository implements IProductRepository {
   @override
   Future<List<ProductModel>> getProducts() async {
     final response = await client.get(
-      url: 'http://192.168.51.106:8082/api/order/Product',
+      url: 'order/Product',
     );
 
     if (response.statusCode == 200) {
@@ -38,7 +38,7 @@ class ProductRepository implements IProductRepository {
   @override
   Future<ProductModel> getProductById({required int productId}) async {
     final response = await client.get(
-      url: 'http:// 192.168.51.106:8082/api/order/Product/$productId',
+      url: 'order/Product/$productId',
     );
 
     if (response.statusCode == 200) {

@@ -12,10 +12,12 @@ abstract class IHttpClient {
 
 class HttpClient implements IHttpClient {
   final client = http.Client();
+  final String baseUrl = 'http://192.168.51.106:8082/api';
 
   @override
   Future get({required String url}) async {
-    return await client.get(Uri.parse(url));
+    final endpoint = Uri.parse('$baseUrl/$url');
+    return await client.get(endpoint);
   }
 
   @override
@@ -23,8 +25,9 @@ class HttpClient implements IHttpClient {
     required String url,
     required Map<String, dynamic> body,
   }) async {
+    final endpoint = Uri.parse('$baseUrl/$url');
     final response = await client.post(
-      Uri.parse(url),
+      endpoint,
       headers: {
         'Content-Type': 'application/json',
       },
