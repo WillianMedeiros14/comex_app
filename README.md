@@ -48,7 +48,7 @@ Você pode assistir ao vídeo do resultado do projeto [aqui](https://drive.googl
 ## 🎲 Executar
 ### Ambiente
 - Certifique-se de que tenha o flutter configurado em sua mpáquina;
-- A versão ultilizada nesse projeto é a 3.22.2
+- A versão utilizada nesse projeto é a 3.22.2
 
 ####  Back
 Para essa aplicação funcionar, o back precisa estar executando, para ter acesso ao back e executar, acesse o link abaixo:
