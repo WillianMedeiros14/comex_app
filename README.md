@@ -86,4 +86,5 @@ Para essa aplicação funcionar, o back precisa estar executando, para ter acess
 ## 🚀 Principais recursos e tecnologias ultilizadas
 - **[Flutter](https://flutter.dev/)**.
 - **[MobX](https://mobx.netlify.app/)**.
+- **[Provider](https://pub.dev/packages/provider)**.
 - **[Package http](https://pub.dev/packages/http)**.
