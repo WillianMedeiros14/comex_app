@@ -107,4 +107,10 @@ abstract class _CartStore with Store {
       updateTotalPurchase();
     }
   }
+
+  @action
+  void clearCart() {
+    listItem.clear();
+    totalPurchase = 0.0;
+  }
 }

@@ -47,7 +47,6 @@ class _ProductDetailsState extends State<ProductDetails> {
   @override
   Widget build(BuildContext context) {
     final CartStore cartStore = Provider.of<CartStore>(context, listen: false);
-    final itemProductStore = ItemProductStore(cartStore, productId);
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,

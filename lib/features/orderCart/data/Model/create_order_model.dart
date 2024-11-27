@@ -1,8 +1,9 @@
+import 'package:comex_app/shared/data/model/cart_item.dart';
 import 'package:comex_app/shared/enums/order_status_enum.dart';
 
 class OrderCreateModel {
-  final OrderStatusEnum status;
-  final DateTime creationDate;
+  final String status;
+  final String creationDate;
   final List<OrderItemCreateModel> orderItems;
 
   OrderCreateModel({
@@ -14,10 +15,29 @@ class OrderCreateModel {
   Map<String, dynamic> toJson() {
     return {
       'status': "Pendente",
-      'creationDate': creationDate.toIso8601String(),
+      'creationDate': creationDate,
       'orderItems': orderItems.map((item) => item.toJson()).toList(),
     };
   }
+}
+
+mapCartItemsToOrderCreateModel({
+  required List<CartItem> cartItems,
+}) {
+  List<OrderItemCreateModel> orderItems = cartItems.map((cartItem) {
+    return OrderItemCreateModel(
+      productId: cartItem.product.id,
+      amount: cartItem.order.amount,
+    );
+  }).toList();
+
+  OrderStatusEnum status = OrderStatusEnum.pendente;
+  String formattedDate = DateTime.now().toUtc().toIso8601String();
+  return OrderCreateModel(
+    status: status.capitalized,
+    orderItems: orderItems,
+    creationDate: formattedDate,
+  );
 }
 
 class OrderItemCreateModel {

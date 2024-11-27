@@ -1,3 +1,4 @@
+import 'package:comex_app/shared/data/model/cart_item.dart';
 import 'package:mobx/mobx.dart';
 import 'package:comex_app/features/orderCart/data/Model/create_order_model.dart';
 import 'package:comex_app/shared/data/model/order_model.dart';
@@ -23,19 +24,42 @@ abstract class _CreateOrderStoreBase with Store {
   bool orderCreated = false;
 
   @action
-  Future<void> createOrder(OrderCreateModel orderCreate) async {
+  Future<bool> createOrder({
+    required List<CartItem> cartItems,
+  }) async {
     isLoading = true;
     errorMessage = null;
+    orderCreated = false;
+
+    final orderToSend = converteDataToSend(cartItems: cartItems);
 
     try {
-      await orderRepository.createOrder(orderCreate: orderCreate);
-      orderCreated = true;
+      final result =
+          await orderRepository.createOrder(orderCreate: orderToSend);
+      if (result) {
+        orderCreated = true;
+        return true;
+      } else {
+        orderCreated = false;
+        return false;
+      }
     } on NotFoundException catch (e) {
       errorMessage = e.message;
+      return false;
     } catch (e) {
       errorMessage = "Ocorreu um erro ao criar o pedido.";
+      return false;
     } finally {
       isLoading = false;
     }
+  }
+
+  OrderCreateModel converteDataToSend({
+    required List<CartItem> cartItems,
+  }) {
+    OrderCreateModel orderCreateModel =
+        mapCartItemsToOrderCreateModel(cartItems: cartItems);
+
+    return orderCreateModel;
   }
 }

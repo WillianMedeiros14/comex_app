@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 
 abstract class IHttpClient {
@@ -19,10 +18,13 @@ class HttpClient implements IHttpClient {
     return await client.get(Uri.parse(url));
   }
 
+  @override
   Future post({
     required String url,
     required Map<String, dynamic> body,
   }) async {
+    print("body send");
+    print(json.encode(body));
     final response = await client.post(
       Uri.parse(url),
       headers: {
@@ -30,6 +32,12 @@ class HttpClient implements IHttpClient {
       },
       body: json.encode(body),
     );
+
+    // Imprimir status code e corpo da resposta para depuração
+    print('Response Status: ${response.statusCode}');
+    print(
+        'Response Body: ${response.body}'); // Aqui mostramos o corpo da resposta
+
     return response;
   }
 }

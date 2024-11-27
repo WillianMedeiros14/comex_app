@@ -28,8 +28,9 @@ abstract class _OrderStore with Store {
 
     try {
       final result = await repository.getOrders();
+      final List<OrderModel> reverseResult = result.reversed.toList();
 
-      state = result;
+      state = reverseResult;
     } on NotFoundException catch (e) {
       print("rro");
       print(e);
