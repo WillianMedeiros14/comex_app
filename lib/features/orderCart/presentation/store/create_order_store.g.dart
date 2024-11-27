@@ -61,7 +61,7 @@ mixin _$CreateOrderStore on _CreateOrderStoreBase, Store {
       AsyncAction('_CreateOrderStoreBase.createOrder', context: context);
 
   @override
-  Future<bool> createOrder({required List<CartItem> cartItems}) {
+  Future<OrderModel> createOrder({required List<CartItem> cartItems}) {
     return _$createOrderAsyncAction
         .run(() => super.createOrder(cartItems: cartItems));
   }

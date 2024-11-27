@@ -23,8 +23,6 @@ class HttpClient implements IHttpClient {
     required String url,
     required Map<String, dynamic> body,
   }) async {
-    print("body send");
-    print(json.encode(body));
     final response = await client.post(
       Uri.parse(url),
       headers: {
@@ -32,12 +30,6 @@ class HttpClient implements IHttpClient {
       },
       body: json.encode(body),
     );
-
-    // Imprimir status code e corpo da resposta para depuração
-    print('Response Status: ${response.statusCode}');
-    print(
-        'Response Body: ${response.body}'); // Aqui mostramos o corpo da resposta
-
     return response;
   }
 }

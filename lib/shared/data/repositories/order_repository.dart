@@ -55,14 +55,19 @@ class OrderRepository implements IOrderRepository {
   }
 
   @override
-  Future createOrder({required OrderCreateModel orderCreate}) async {
+  Future<OrderModel> createOrder(
+      {required OrderCreateModel orderCreate}) async {
     final response = await client.post(
       url: 'http://192.168.51.106:8082/api/Order',
       body: orderCreate.toJson(),
     );
 
     if (response.statusCode == 201) {
-      return true;
+      final body = jsonDecode(response.body);
+
+      final OrderModel order = OrderModel.fromMap(body);
+
+      return order;
     } else if (response.statusCode == 404) {
       throw NotFoundException('A url informada não é válida');
     } else {

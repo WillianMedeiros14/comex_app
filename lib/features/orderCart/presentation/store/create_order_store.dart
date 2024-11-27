@@ -24,7 +24,7 @@ abstract class _CreateOrderStoreBase with Store {
   bool orderCreated = false;
 
   @action
-  Future<bool> createOrder({
+  Future<OrderModel> createOrder({
     required List<CartItem> cartItems,
   }) async {
     isLoading = true;
@@ -36,19 +36,14 @@ abstract class _CreateOrderStoreBase with Store {
     try {
       final result =
           await orderRepository.createOrder(orderCreate: orderToSend);
-      if (result) {
-        orderCreated = true;
-        return true;
-      } else {
-        orderCreated = false;
-        return false;
-      }
+      orderCreated = true;
+      return result;
     } on NotFoundException catch (e) {
       errorMessage = e.message;
-      return false;
+      rethrow;
     } catch (e) {
       errorMessage = "Ocorreu um erro ao criar o pedido.";
-      return false;
+      rethrow;
     } finally {
       isLoading = false;
     }

@@ -1,6 +1,7 @@
 import 'package:comex_app/features/orderCart/data/Model/create_order_model.dart';
 import 'package:comex_app/features/orderCart/presentation/store/create_order_store.dart';
 import 'package:comex_app/shared/data/http/http_client.dart';
+import 'package:comex_app/shared/data/model/order_model.dart';
 import 'package:comex_app/shared/data/repositories/order_repository.dart';
 import 'package:comex_app/shared/stores/cart_store.dart';
 import 'package:comex_app/shared/utils/number_format.dart';
@@ -144,12 +145,8 @@ class _OrderCartScreenState extends State<OrderCartScreen> {
                         onPressed: cartStore.isEmptyList
                             ? null
                             : () async {
-                                final result = await createOrderStore
-                                    .createOrder(cartItems: cartStore.listItem);
-
-                                if (result) {
-                                  cartStore.clearCart();
-                                }
+                                await createOrderStore.createOrder(
+                                    cartItems: cartStore.listItem);
                               },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color.fromRGBO(3, 87, 48, 1),
