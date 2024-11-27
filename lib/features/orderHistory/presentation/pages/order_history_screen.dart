@@ -54,13 +54,21 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                     child: Observer(
                       builder: (_) {
                         if (orderStore.isLoading) {
-                          return const Center(
-                              child: CircularProgressIndicator());
+                          return Center(
+                            child: Container(
+                              padding: const EdgeInsets.only(top: 100),
+                              child: const CircularProgressIndicator(),
+                            ),
+                          );
                         }
 
                         if (orderStore.state.isEmpty) {
-                          return const Center(
-                              child: Text('Nenhum pedido encontrado.'));
+                          return Center(
+                            child: Container(
+                              padding: EdgeInsets.only(top: 100),
+                              child: Text('Nenhum pedido encontrado.'),
+                            ),
+                          );
                         }
 
                         return Wrap(

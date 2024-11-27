@@ -6,6 +6,7 @@ import 'package:comex_app/shared/data/repositories/order_repository.dart';
 import 'package:comex_app/shared/utils/date_format.dart';
 import 'package:comex_app/shared/utils/number_format.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class OrderHistoryDetailsScreen extends StatefulWidget {
@@ -71,14 +72,18 @@ class _OrderHistoryDetailsScreenState extends State<OrderHistoryDetailsScreen> {
                     child: Observer(
                       builder: (_) {
                         if (orderStoreDetails.isLoading) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
+                          return Center(
+                            child: Container(
+                                padding: EdgeInsets.only(top: 100),
+                                child: CircularProgressIndicator()),
                           );
                         }
 
                         if (orderStoreDetails.orderItems.isEmpty) {
-                          return const Center(
-                            child: Text('Nenhum pedido encontrado.'),
+                          return Center(
+                            child: Container(
+                                padding: EdgeInsets.only(top: 100),
+                                child: Text('Nenhum pedido encontrado.')),
                           );
                         }
                         return Wrap(
