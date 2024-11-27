@@ -173,6 +173,7 @@ class _OrderCartScreenState extends State<OrderCartScreen> {
           Observer(builder: (_) {
             return ModalSuccessOrder(
               isOpen: createOrderStore.orderCreated,
+              idOrderCreated: createOrderStore.idOrderCreated,
             );
           })
         ],

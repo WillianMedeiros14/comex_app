@@ -57,6 +57,22 @@ mixin _$CreateOrderStore on _CreateOrderStoreBase, Store {
     });
   }
 
+  late final _$idOrderCreatedAtom =
+      Atom(name: '_CreateOrderStoreBase.idOrderCreated', context: context);
+
+  @override
+  int get idOrderCreated {
+    _$idOrderCreatedAtom.reportRead();
+    return super.idOrderCreated;
+  }
+
+  @override
+  set idOrderCreated(int value) {
+    _$idOrderCreatedAtom.reportWrite(value, super.idOrderCreated, () {
+      super.idOrderCreated = value;
+    });
+  }
+
   late final _$createOrderAsyncAction =
       AsyncAction('_CreateOrderStoreBase.createOrder', context: context);
 
@@ -71,7 +87,8 @@ mixin _$CreateOrderStore on _CreateOrderStoreBase, Store {
     return '''
 isLoading: ${isLoading},
 errorMessage: ${errorMessage},
-orderCreated: ${orderCreated}
+orderCreated: ${orderCreated},
+idOrderCreated: ${idOrderCreated}
     ''';
   }
 }

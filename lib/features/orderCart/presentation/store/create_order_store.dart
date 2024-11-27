@@ -23,6 +23,9 @@ abstract class _CreateOrderStoreBase with Store {
   @observable
   bool orderCreated = false;
 
+  @observable
+  int idOrderCreated = 0;
+
   @action
   Future<OrderModel> createOrder({
     required List<CartItem> cartItems,
@@ -37,6 +40,7 @@ abstract class _CreateOrderStoreBase with Store {
       final result =
           await orderRepository.createOrder(orderCreate: orderToSend);
       orderCreated = true;
+      idOrderCreated = result.id;
       return result;
     } on NotFoundException catch (e) {
       errorMessage = e.message;

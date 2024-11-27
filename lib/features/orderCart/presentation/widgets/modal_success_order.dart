@@ -1,13 +1,16 @@
+import 'package:comex_app/shared/stores/cart_store.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ModalSuccessOrder extends StatefulWidget {
   final bool isOpen;
+  final int idOrderCreated;
 
   const ModalSuccessOrder({
     required this.isOpen,
+    required this.idOrderCreated,
     super.key,
   });
-
   @override
   State<ModalSuccessOrder> createState() => ModalSuccessOrderState();
 }
@@ -38,6 +41,8 @@ class ModalSuccessOrderState extends State<ModalSuccessOrder> {
   }
 
   void openModal(BuildContext context) {
+    final CartStore cartStore = Provider.of<CartStore>(context, listen: false);
+
     showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
@@ -65,7 +70,15 @@ class ModalSuccessOrderState extends State<ModalSuccessOrder> {
                       children: <Widget>[
                         Expanded(
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              cartStore.clearCart();
+                              Navigator.pop(context);
+                              Navigator.pushNamed(
+                                context,
+                                '/orderHistoryDetailsScreen',
+                                arguments: {"orderId": widget.idOrderCreated},
+                              );
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor:
                                   const Color.fromARGB(255, 3, 146, 91),
@@ -93,6 +106,7 @@ class ModalSuccessOrderState extends State<ModalSuccessOrder> {
                                   color: Colors.red, width: 1.5),
                             ),
                             onPressed: () {
+                              cartStore.clearCart();
                               Navigator.pop(context);
                             },
                             child: const Text('Fechar'),
